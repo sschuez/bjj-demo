@@ -1,0 +1,44 @@
+<!-- Card personal details -->
+<div class="col mb-4">
+  <div class="card border-0 b rounded-lg shadow-sm">
+    <div class="card-body add-comment-reference">
+     
+      <%= render 'users/shared_show/add_comment_button' %>
+      
+      <h5 class="card-title"><strong>Personal Info</strong></h5>
+      <br>
+      <p class="card-text">
+      	Birthday: <% if @user.date_of_birth == nil %>
+      		<span class="n-a">n/a</span>
+				<% else %>
+      		<%= @user.date_of_birth.strftime("%d.%m.%Y") %>
+      	<% end %>
+      	</p>
+      <p class="card-text">
+      	Age: <% if @user.date_of_birth == nil %>
+      		<span class="n-a">n/a</span>
+				<% else %>
+      		<%= @user.age? %>
+      	<% end %>
+      	</p>
+      <p class="card-text">
+      	Phone: <% if @user.phone == "" || @user.phone == nil %>
+      		<span class="n-a">n/a</span>
+      	<% else %> 
+      		<%= @user.phone %>
+      	<% end %>
+      	</p>
+      <p class="card-text">
+        Sex: <% if @user.sex == "" || @user.sex == nil %>
+          <span class="n-a">n/a</span>
+        <% else %> 
+          <%= @user.sex %>
+        <% end %>
+        </p>
+
+    </div>
+  
+    <%= render 'users/shared_show/comment_conditional_personal_info' %>
+
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<h1>Comments#index</h1>
+<p>Find me in app/views/comments/index.html.erb</p>
+
+<% @comments.each do |comment| %>
+	<h2><%= comment.category %></h2>
+	<p><%= comment.content %></p>
+	<% end %>

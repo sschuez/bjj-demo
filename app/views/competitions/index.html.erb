@@ -1,0 +1,56 @@
+<div class="container">
+
+	<div class="update-top">
+		<div>
+			<%= simple_form_for :search, url: competitions_path, method: "GET", remote: true do |f| %>
+			<button onclick="myFunction()" class=filter-btn>Filters</button>
+			
+	  	<%= link_to competitions_path do %>
+	  		<i class="fas fa-redo-alt"></i>
+			<% end %>
+		
+			<!-- Filter card -->
+			<div class="filter-card" id="myDIV" style="display: none;">
+		    <div class="filter-btn-container">
+		      <div class="filter-btn-item">
+		        <%= f.input :date, label: "Year",  collection: [2020, 2021, 2022], as: :check_boxes %>
+		      </div>
+
+					<div class="filter-btn-item">
+		        <%= f.submit "Search", hidden: true, class: "btn btn-primary" %>
+		    	</div>
+		    </div>
+		  </div>
+		  <% end %>
+
+			<script>
+			function myFunction() {
+			  var x = document.getElementById("myDIV");
+			  if (x.style.display === "none") {
+			    x.style.display = "block";
+			  } else {
+			    x.style.display = "none";
+			  }
+			}
+			</script>
+			
+		</div>
+		<div>
+			<%= link_to "Add competition", new_competition_path, class: "btn btn-primary" %>
+		</div>
+	</div>
+	<br>
+	
+	<% if @competitions.upcoming.empty? || @competitions == nil %>
+		<p>No upcoming competitions</p>
+	<% else %>
+	  <div id="competitions">
+	  	<div>
+	    <%= render 'competition', competitions: @competitions %>
+	    </div>
+	  </div>
+  <% end %>
+	<br>
+	<br>
+		
+

@@ -1,0 +1,224 @@
+.filter-card{
+	background-color: white;
+	padding: 6px;
+	border-radius: 5px;
+	box-shadow: 0 0 15px rgba(0,0,0,0.2);
+	padding-bottom: 0px;
+}
+
+#student-card:hover{
+	background-color: yellow;
+	text-decoration: none;
+}
+
+.card-product {
+  overflow: hidden;
+  height: 120px;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+}
+
+.card-product img {
+  height: 100%;
+  width: 120px;
+  object-fit: cover;
+}
+
+.card-product h2 {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.card-product p {
+  font-size: 12px;
+  line-height: 1.4;
+  opacity: .7;
+  margin-bottom: 0;
+  margin-top: 8px;
+}
+
+.card-product .card-product-infos {
+  padding: 16px;
+}
+
+#name-card{
+	position: relative;
+}
+
+#name-card .user-admin{
+	text-align: center;
+	border-radius: 50%;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+	height: 50px;
+	width: 50px;
+	position: absolute;
+	right: 15px;
+	top: 12px;
+	background-color: $green;
+	h2{
+		color: white;
+		font-size: 12px;
+	}
+}
+
+#name-card .student-admin{
+	text-align: center;
+	border-radius: 50%;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+	height: 50px;
+	width: 50px;
+	position: absolute;
+	right: 15px;
+	top: 12px;
+	background-color: $cyan;
+	h2{
+		color: white;
+		font-size: 12px;
+	}
+}
+.badge-admin{
+	text-decoration: none;
+	padding-top: 17px;
+	margin: none;
+}
+
+.badge-student{
+	text-decoration: none;
+	padding-top: 17px;
+	margin: none;
+}
+
+.n-a{
+	color: red;
+	display: inline;
+}
+
+.fa-check-circle{
+	color: $green;
+}
+
+.fa-times-circle{
+	color: $red;
+}
+
+.bg-secondary{
+	color: white;
+}
+
+.comment-card{
+	position: relative;
+	margin-bottom: -6px;
+	h5{
+		font-size: 14px;
+	}
+	p{
+		font-size: 12px;
+		margin-bottom: 0px;
+	}
+	.card-body{
+		padding: 12px;
+		padding-bottom: 6px;
+		a{
+			text-decoration: none;
+			color: black;
+		}
+	}
+	.fas{
+		font-size: 13px;
+	}
+	.comment-actions{
+		top: 2px;
+	}
+}
+
+.comments-standalone{
+	margin-right: 6px;
+}
+
+#updated-standalone{
+	font-size: 10px;
+}
+
+.comment-actions{
+	position: absolute;
+	right: 15px;
+	top: 12px;
+	display: flex;
+}
+
+.card-name{
+	margin-left: 20px;
+}
+
+.photo-selection{
+	margin: 5px;
+	display: flex;
+}
+
+.email{
+	margin-bottom: 8px;
+}
+
+.comment-card-card{
+	margin-top: -18px;
+}
+
+.comment-card-content{
+	border-top: solid 1px;
+	border-color: rgb(198, 196, 196);
+	margin-bottom: -12px;
+	padding: 10px;
+	h5{
+		font-size: 14px;
+	}
+	p{
+		font-size: 12px;
+	}
+	.card-text{
+		margin-bottom: 6px;
+	}
+	.comment-actions{
+		margin-top: -12px;
+
+	}
+	.fas{
+		font-size: 13px;
+	}
+}
+
+.updated-at{
+	text-align: right;
+	padding-right: 6px;
+	padding-bottom: 6px;
+	p{
+		font-size: 8px;
+		margin-bottom: 0;
+		color: rgb(119, 116, 116);
+	}
+}
+
+.card-category {
+  background-size: cover;
+  background-position: center;
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+
+
+
+
+
+
+

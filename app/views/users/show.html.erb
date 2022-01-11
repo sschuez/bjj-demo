@@ -1,0 +1,67 @@
+<div class="container">
+	
+		<!-- Icons edit & delete top -->
+		<%= render 'users/shared_show/icons_edit_delete' %>
+		<!-- Card with name, avatar and email -->
+		<%= render 'users/shared_show/profile_card'%>
+		<br>
+		
+		<!-- Profile cards -->
+		<div class="row row-cols-1 row-cols-md-2">
+		  <!-- Card personal details -->
+		  <%= render 'users/shared_show/personal_details' %>
+			<!-- Club affilitation -->
+			<%= render 'users/shared_show/club_affiliation' %>
+			<!-- BJJ level -->
+			<%= render 'users/shared_show/bjj_level' %>
+		  <!-- Measurements -->
+			<%= render 'users/shared_show/measurements' %>
+			<br>
+	 	</div>
+		
+		<%= link_to "Edit Profile", edit_user_path(@user), class: "btn btn-warning px-4" %>
+		<%= link_to "Delete Profile", user_path(@user),
+		      method: :delete,
+		      data: { confirm: "Are you sure you want to delete user ##{@user.id} - #{user_name}?" },
+		      class: "btn btn-danger" %>
+		<br>
+		<br>
+
+	<%= render 'users/shared_show/comments_cards' %>	
+	<%= render 'users/shared_show/competitions_cards' %>	
+	<br>
+	<br>
+</div>
+
+
+
+  <!-- not_active_why:													(string) -->
+
+  <!-- email:																		(string) -->
+  <!-- encrypted_password:											(string) -->
+  <!-- reset_password_token:										(string) -->
+  <!-- reset_password_sent_at: 									(datetime) -->
+  <!-- remember_created_at:											(datetime) -->
+  <!-- created_at: 															(datetime) -->
+  <!-- updated_at:															(datetime) -->
+  <!-- admin: 																	(boolean) -->
+  <!-- first_name: 															(string) -->
+  <!-- last_name:																(string) -->
+  <!-- date_of_birth:														(date)	 -->
+  <!-- phone:																		(string) -->
+  <!-- started:																	(date) -->
+  <!-- weight:  																(integer) -->
+  <!-- height:																	(integer) -->
+  <!-- weight_good: 														(boolean) -->
+  <!-- reasons_for_weight:											(string) -->
+  <!-- active_member: 													(boolean) -->
+  <!-- not_active_why:													(string) -->
+  <!-- belt:																		(string) -->
+  <!-- last_promotion:													(date) -->
+
+
+
+
+
+
+

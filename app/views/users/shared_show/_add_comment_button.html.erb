@@ -1,0 +1,7 @@
+<% if policy(@user.comments).new? %>
+	<div class="add-comment-card">
+	  <%= link_to new_user_comment_path(@user, @comment), class: "btn" do %>
+	    <i class="fas fa-plus-square"></i>
+	  <% end %>
+	</div>
+<% end %>

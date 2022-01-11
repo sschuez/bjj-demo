@@ -1,0 +1,31 @@
+<div class="container">
+	
+	<%= render 'competition_appointments/icons_edit_delete' %>
+
+	<div class="row">
+		<div class="col mb-4">
+			<div class="card border-0 bg-white rounded-lg shadow-sm">
+			  <div class="card-body">
+				
+					<h5 class="card-title">Registration for <strong><%= @competition.name %></strong></h5>
+					<br>
+					<p class="card-text">User: <strong><%= @user.first_name %> <%= @user.last_name %></strong></p>
+					<p class="card-text">Belt class: <%= @competition_appointment.belt_class.upcase %></p>
+					<p class="card-text">Weight class: <%= @competition_appointment.weight_class.upcase %></p>
+					<p class="card-text">
+						Comments: <%= @competition_appointment.comment %> 
+					</p>
+					<p class="card-text">
+						Result:
+						<% if @competition_appointment.result == nil %>
+							Not yet entered
+						<% else %>
+							<%= @competition_appointment.result %>
+						<% end %>
+					</p>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

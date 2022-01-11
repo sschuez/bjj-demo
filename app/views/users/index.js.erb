@@ -1,0 +1,16 @@
+function replaceUsers (innerHTML) {
+  const users = document.getElementById('users');
+  users.innerHTML = innerHTML;
+  // console.log(users.innerHTML);
+}
+
+console.log('hello from the other side.')
+
+if ('<%= @filter %>' === "[]") {
+replaceUsers("<%= j render 'user', users: User.all %>");
+}
+else {
+replaceUsers("<%= j render 'user', users: @users %>");
+}
+
+

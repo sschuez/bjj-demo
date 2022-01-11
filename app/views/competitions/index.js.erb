@@ -1,0 +1,16 @@
+function replaceCompetitions (innerHTML) {
+  const competitions = document.getElementById('competitions');
+  competitions.innerHTML = innerHTML;
+  // console.log(users.innerHTML);
+}
+
+console.log('hello from the other competition side.')
+
+if ('<%= @filter %>' === "[]") {
+replaceCompetitions("<%= j render 'competition', competitions: Competition.all %>");
+}
+else {
+replaceCompetitions("<%= j render 'competition', competitions: @competitions %>");
+}
+
+

@@ -1,0 +1,85 @@
+<% @competitions.each do |competition| %>
+	<div class="card-trip">
+		<!-- <div class="card-photo"> -->
+			<%#= link_to competition_path(competition) do %>
+				<% if competition.photo.attached? %>
+			  	<%= cl_image_tag competition.photo.key, height: 300, width: 1000, crop: :fill %>
+			  <% else %>
+			  	<%= image_tag "bjj_default1.jpg" %>
+			  <% end %>
+			<%# end %>
+		<!-- </div> -->
+	  <div class="card-trip-infos">
+
+	  	<div class="card-trip-edit">
+	  		<% if policy(competition).update? %>
+		  		<%= link_to edit_competition_path(competition), class: "btn btn-edit" do %>
+		  		  <i class="fas fa-edit"></i>
+		  		<% end %>
+	  		<% end %>
+				
+				<% if policy(competition).destroy? %>
+		  		<%= link_to competition_path(competition),
+		  		      method: :delete,
+		  		      data: { confirm: "Are you sure you want to delete competition ##{competition.id} - #{competition.name.upcase}?" },
+		  		      class: "btn btn-delete" do %>
+		  				<i class="fas fa-trash-alt"></i>
+		  		<% end %>
+		  	<% end %>
+	  	</div>
+	    
+	    <div>
+	    	<%= link_to competition_path(competition), class: "competition-name" do %>
+	      	<h2><%= competition.name %></h2>
+	      	<h6><%= competition.location %>, <%= competition.date.strftime("%d.%m.%Y") %></h6>
+		      <p style="margin-bottom: 12px;">
+						<%  if competition.info == nil %>
+							<%=  %>
+						<% else %>
+		      		<%= competition.info %>
+		      	<% end %>
+		      </p>
+	      <% end %>
+
+	      <% if competition.website == nil %>
+	      	<p>No website inserted</p>
+	      <% else %>
+	      <p>Go to <%= link_to "website", "http://#{competition.website}", target: :_blank %></p>
+	      <% end %>
+
+				<!-- Registration period logic -->
+				<%= link_to competition_path(competition) do %>
+
+					<% if (competition.registration_start - Date.today).to_i < 1 && (competition.registration_end - Date.today).to_i > 0 %>
+						<p>Registration is <span style="color: #1EDD88; font-weight: bold;">open</span></p>
+					<% elsif competition.registration_start == nil || (competition.registration_end - Date.today).to_i < 0 %>
+						<p>Registration period <span style="color: #FD1015; font-weight: bold;">n/a</span> or <span style="color: #FD1015; font-weight: bold;">passed</span>, please check website</p>
+					<% else %>
+		      	<p style="font-style: italic">Registration open in <strong><%= (competition.registration_start - Date.today).to_i %> days</strong> (on <%= competition.registration_start.strftime("%d.%m.%Y") %>)</p>
+		      <% end %>
+					
+					<!-- Registration deadline logic -->
+					<% if competition.registration_end == nil || (competition.registration_end - Date.today).to_i < 0 %>
+						<p>Registration deadline <span style="color: #FD1015; font-weight: bold;">n/a</span> or <span style="color: #FD1015; font-weight: bold;">passed</span>, please check website</p>
+					<% else %>
+		      	<p style="font-style: italic">Registration closes in <strong><%= (competition.registration_end - Date.today).to_i %> days</strong> (on <%= competition.registration_end.strftime("%d.%m.%Y") %>)</p>
+		      <% end %>
+
+		    <% end %>
+
+		    <p>Registered: <strong><%= competition.competition_appointments.count %></strong></p>
+
+	    <div class="sign-up" style="display: flex;">
+					<div class="btn-competition">
+	    			<% if competition.users.include?(current_user) %>
+		   				<p><strong>Registered <i class="fas fa-check-circle"></i></strong></p>
+		   			<% else %>
+	    				<%= link_to "Register", new_competition_competition_appointment_path(competition), class: "btn btn-primary btn-competition" %>
+	    			<% end %>
+		   		</div>
+	    </div>
+
+	    </div>
+	  </div>
+	</div>
+<% end %>

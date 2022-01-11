@@ -1,0 +1,10 @@
+<!-- Badge showing if admin or student -->
+<% if @user.admin? %>
+	<div class="user-admin">
+	  <h2 class="badge-admin"><strong>Admin</strong></h2>
+	</div>	  
+<% else %>
+	<div class="student-admin">
+	  <h2 class="badge-admin"><strong>Student</strong></h2>
+	</div>
+<% end %>

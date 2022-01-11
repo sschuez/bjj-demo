@@ -1,0 +1,43 @@
+.comments{
+	display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  position: relative;
+	.add-comment{
+  	position: absolute;
+  	left: 150px;
+  	top: -12px;
+	}
+	.add-competition{
+		position: absolute;
+  	left: 175px;
+  	top: -12px;
+	}
+}
+
+.promotions-container{
+	margin-bottom: 12px;
+}
+
+.promotions{
+	display: flex;
+}
+
+.promotion-belt{
+	margin-right: 5px;
+}
+
+.promotion-date{
+	margin-left: 5px;
+}
+
+.card-body h6{
+	font-style: italic;
+}
+
+.belt-progress{
+	margin-bottom: 0;
+	a{
+		margin-top: 12px;
+	}
+}

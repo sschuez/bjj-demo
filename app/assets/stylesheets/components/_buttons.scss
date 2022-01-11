@@ -1,0 +1,270 @@
+.filter-btn{
+  border: none;
+  padding: 3px;
+  padding-left: 6px;
+  padding-right: 6px;
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+.filter-btn:hover{
+    background-color: rgb(255, 251, 242);
+    cursor: pointer;
+  }
+
+form{
+  a{
+    margin-left: 20px;
+    margin-bottom: 12px;
+  }
+}
+
+.filter-btn-container{
+  display: grid;
+  // flex-wrap: wrap;
+  justify-content: center;
+  margin: 12px;
+  // text-align: center;
+}
+
+.filter-btn-item{
+  flex-grow: 1;
+  // align-self: center;
+  // align-items: center;
+  margin-left: 12px;
+}
+
+
+.sort-btn-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 12px;
+  text-align: center;
+}
+
+.sort-btn-item{
+  flex-grow: 1;
+  align-self: center;
+  align-items: center;
+}
+
+.sort-btn{
+  a{
+    border: solid 1px;
+    padding: 3px;
+    padding-left: 6px;
+    padding-right: 6px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: black;
+  }
+
+  :hover{
+     background-color: rgb(255, 251, 242); 
+  }
+}
+
+.sort-btn .current {
+  padding-right: 14px;
+  background-repeat: no-repeat;
+  background-position: 97% 50%;
+  background-color: rgb(255, 251, 242);
+}
+
+.sort-btn .asc {
+  background-image: image-url('up-arrow.png');
+}
+
+.sort-btn .desc {
+  background-image: image-url('down-arrow.png');
+}
+
+.icons-top{
+	direction: ltr;
+	display: flex;
+	justify-content: flex-end;
+  align-items: center;
+}
+
+.icon-edit{
+	.btn{
+		color: $orange;
+	}
+}
+
+.fa-edit{
+  color: $orange;
+}
+
+.icon-delete{
+	.btn{
+		color: $red;
+	}
+}
+
+.fa-trash-alt{
+  color: $red;
+}
+
+.icon-back{
+	margin-right: auto;
+}
+
+.fa-plus-square{
+	color: $green;
+}
+
+.update-top{
+	display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.btn-back{
+	color: $blue;
+}
+
+.upload-button{
+	padding: 3px;
+	height: 38px;
+	padding-left: 0px;
+	padding-right: 0px;
+	margin-right: 12px;
+}
+
+.btn-password{
+	border: solid 1px;
+  padding: 6px;
+  font-size: 10px;
+  text-decoration: none;
+  border-radius: 2px;
+  color: black;
+
+}
+
+.btn-password:hover{
+  background-color: $blue;
+  color: white;
+  text-decoration: none;
+ }
+
+.btn-avatar{
+  border: solid 1px;
+  padding: 3px;
+  font-size: 10px;
+  width: 77px;
+  height: 22px;
+}
+
+.btn-avatar:hover{
+  background-color: $blue;
+  color: white;
+}
+
+.add-comment-reference{
+	position: relative;
+}
+
+.add-comment-card{
+	position: absolute;
+	right: 6px;
+	bottom: 11px;
+	display: flex;
+	.fa-plus-square{
+		font-size: 18px;
+	}
+}
+
+.fa-envelope{
+	color: $green;
+}
+
+.btn-promote{
+	margin-top: 12px;
+}
+
+.belt-item{
+	position: relative;
+}
+
+.promote-btn{
+	position: absolute;
+	right: 6px;
+	top: 11px;
+}
+
+.btn-add-belt{
+	border: solid 1px;
+  padding: 3px;
+  font-size: 10px;
+  text-decoration: none;
+  border-radius: 5px;
+  color: black;
+}
+
+.btn-add-belt:hover{
+  text-decoration: none;
+ }
+
+
+ // Smallest device
+ @media (min-width: 100px) and (max-width: 575px) {
+   .promote-btn {
+	  	right: 0px;
+	  	top: -12px;
+   }
+   .filter-btn-container{
+    grid-template-columns: 1fr 1fr 1fr; 
+   }
+   .filter-btn{
+    background-color: white;
+   } 
+ }
+
+ // Small devices (landscape phones, 576px and up)
+ @media (min-width: 576px) {
+   .promote-btn {
+    	right: 32px;
+    	top: -12px;
+   }
+   .filter-btn-container{
+    grid-template-columns: 1fr 1fr 1fr; 
+   }
+ }
+
+ // Medium devices (tablets, 768px and up)
+ @media (min-width: 768px) {
+   .promote-btn {
+    	right: 0px;
+    	top: 8px; 
+   }
+   .filter-btn-container{
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; 
+   }
+ }
+
+ // Large devices (desktops, 992px and up)
+ @media (min-width: 992px) {
+  .promote-btn {
+    right: 6px;
+    top: 8px;
+   }
+   .filter-btn-container{
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+   }
+ }
+
+ // Extra large devices (large desktops, 1200px and up)
+ @media (min-width: 1200px) {
+  .promote-btn {
+  	right: 6px;
+  	top: 8px;  
+   }
+   .filter-btn-container{
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; 
+   }
+ }
+
+
+

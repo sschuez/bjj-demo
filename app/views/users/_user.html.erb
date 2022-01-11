@@ -1,0 +1,106 @@
+<% @users.each do |user| %>
+		
+		<% if user.promotions.empty? %>
+			<%=  %>
+		<% elsif user.promotions.last.promoted_at == nil %> 
+			<% last_promotion = user.promotions.last.created_at %>
+		<% else %>
+			<% last_promotion = user.promotions.last.promoted_at %>
+		<% end %>
+
+		<div class="index-card">
+
+			<%#= link_to user_path(user) do %>
+			
+				<div class="flex-grid">
+					
+					<!-- Avatar -->
+					<div class="flex-col item1">
+						<%= link_to user_path(user) do %>
+							<% if user.photo.attached? %>
+						         <%= cl_image_tag user.photo.key, :transformation=>[
+						            {:width=>200, :height=>200, :gravity=>"face", :radius=>"max", :crop=>"thumb"},
+						            {:width=>200, :crop=>"scale"}
+						            ], 
+						            class: "user-avatar", alt: "user-avatar" %>
+						  <% else %>
+								<div class="default-avatar">
+									<%= image_tag "default_avatar_square.png", class: "user-avatar", alt: "user-avatar" %>
+								</div>
+						  <% end %>
+						<% end %>
+						<div class="active-icon">
+							<%= link_to edit_user_path(user) do %>
+						    <% if user.active_member == true %>
+							    <i class="fas fa-check-circle"></i>
+							  <% else %>
+							    <i class="fas fa-times-circle"></i>
+						    <% end %>
+					    <% end %>
+						</div>
+					</div>
+				
+					<!-- Name -->
+					<div class="flex-col name-item">
+						<%= link_to user_path(user) do %>
+							<h5><%= user.first_name %> <%= user.last_name %></h5>
+							<%= mail_to user.email, class: "btn" do %>
+								<i class="far fa-envelope"></i>
+							<% end %>
+						<% end %>
+					</div>
+
+					<!-- empty placeholder -->
+					<div class="flex-col">
+					</div>
+
+					<!-- Belt -->
+					<div class="flex-col belt-item">
+						<% if user.promotions.empty? %>
+							<%= link_to new_user_promotion_path(user), class: "btn btn-add-belt" do  %>
+								<p>Add belt</p>
+							<% end %>
+						<% else %>
+							<p><%= user.promotions.last.belt %></p>
+							<% if user.promotions.last.belt != @belts.last %>
+								<div class="promote-btn">
+									<%= link_to new_user_promotion_path(user), class: "btn" do %>
+										<i class="fas fa-plus-square"></i>
+									<% end %>
+								</div>
+							<% end %>	
+						<% end %>
+					</div>
+
+					<!-- Last promotion -->
+					<div class="flex-col">
+						<%= link_to user_path(user) do %>
+							<% if user.promotions.empty? %>
+								<p>No promotions</p>
+							<% else %>
+								<p class="card-text">Prom last:
+									<% if ((Date.today.year * 12 + Date.today.month) - (last_promotion.year * 12 + last_promotion.month).to_i) > 6 %>
+					    			<strong class="red"><%= user.date_diff(last_promotion, Date.today) %></strong>
+					    		<% else %>
+					    			<strong class="green"><%= user.date_diff(last_promotion, Date.today) %></strong>
+					    		<% end %>
+							  </p>
+							<% end %>
+						<% end %>
+					</div>
+
+					<!-- Measurements -->
+					<div class="flex-col measurements">
+						<%= link_to user_path(user) do %>
+							<div id="weight">
+								<p>Weight: <%= user.weight %>kg</p>
+								<p>Height: <%= user.height %>cm</p>
+							</div>
+						<% end %>
+					</div>
+				</div>
+
+			<%# end %>
+		
+		</div>
+	<% end %>

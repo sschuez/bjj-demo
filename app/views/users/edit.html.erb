@@ -1,0 +1,261 @@
+<div class="container">
+
+	<% if current_user == @user || current_user.admin? %>
+
+		<%= simple_form_for(@user) do |f| %>
+
+		<div class="update-top">
+			<div>
+			<%= link_to user_path(@user), class: "btn btn-back" do %>
+				<i class="fas fa-arrow-left"></i>
+			<% end %>
+			</div>
+			<div>
+				<%= f.button :submit, "Update Profile", class: "btn btn-primary mb-3" %>
+			</div>
+		</div>
+
+		<!-- Card with name, avatar and email -->
+		<div class="row align-items-center bg-secondary py-3 rounded-lg shadow-sm" id="name-card">
+	    <!-- Avatar -->
+	    <div class="col-3 ml-1">
+		  	<% if @user.photo.attached? %>
+		  		<%= cl_image_tag @user.photo.key, :transformation=>[
+	      	  	  {:width=>400, :height=>400, :gravity=>"face", :radius=>"max", :crop=>"thumb"},
+	      	  	  {:width=>200, :crop=>"scale"}
+	      	  	  ], class: "avatar-large", alt: "avatar-large" %>
+		  	<% else %>
+		  		<%= image_tag "default_avatar_square.png", class: "avatar-large", alt: "avatar-large" %>
+		  	<% end %>
+		  	<br>
+		  	<br>
+	    </div>
+			
+	    <!-- Name -->
+	    <div class="col-7 card-name">
+	    	<div class="form-group">
+		      <p><%= f.text_field :first_name, placeholder: "First name", class: "form-control" %></p>
+		      <p><%= f.text_field :last_name, placeholder: "Last name", class: "form-control" %></p>
+		      <p><%= f.text_field :email, class: "form-control" %></p>
+	    	</div>
+	    </div>
+
+		  <div class="photo-selection">
+		    <div class="btn btn-primary upload-button">
+		    	<%= f.input :photo, as: :file, label: false %>
+		    </div>
+		    
+			 	<div>
+					<%= f.button :submit, "Update Photo", class: "btn btn-warning" %>
+				</div>
+			</div>
+
+			<!-- Badge showing if admin or student -->
+			<%= render 'users/shared_edit/badge_student' %>
+	  </div>
+		<br>
+			
+		<!-- Profile cards -->
+		<div class="row row-cols-1 row-cols-md-2">
+		  
+		  <!-- Card personal details -->
+		  <div class="col mb-4">
+		    <div class="card bg-secondary border-0 b rounded-lg shadow-sm">
+		      <div class="card-body">
+		        <h5 class="card-title"><strong>Personal Info</strong></h5>
+		        <br>
+		        <div class="form-group">
+			        <p class="card-text">
+			        	<%= f.label "Birthday:" %>
+			        	<%= f.date_field :date_of_birth, class: "form-control" %>
+			        </p>
+			        <p class="card-text">
+			        	<%= f.label "Phone:" %>
+			        	<%= f.text_field :phone, class: "form-control" %>
+			        </p>
+			        <p class="card-text mb-1">
+			        	<%= f.label "Sex:" %>
+			        	<%= f.input :sex, collection: @sex, label: false, class: "form-control" %>
+			        </p>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+			   
+			<!-- Club affilitation -->
+			<div class="col mb-4">
+		    <div class="card bg-secondary border-0 b rounded-lg shadow-sm">
+		      <div class="card-body">
+		        <h5 class="card-title"><strong>Club affiliation</strong></h5>
+		        <br>
+		        <div class="from-group">
+			        <p class="card-text">
+			        	<%= f.label "Member since:" %>
+			        	<%= f.date_field :started, class: "form-control" %>
+			        </p>
+	  					<% if current_user.admin? %>
+				        <p class="card-text">
+				        	<%= f.label "Active:" %> 
+				        	<%= f.check_box :active_member, class: "form-control" %>
+				        </p>
+							<% end %>
+				    </div>
+		      </div>
+		    </div>
+		  </div>
+				
+			<!-- BJJ level -->
+			<%# if @user.promotions.empty? %>
+				<!-- <div class="col mb-4">
+			    <div class="card bg-secondary border-0 b rounded-lg shadow-sm">
+			      <div class="card-body">
+			        <h5 class="card-title"><strong>BJJ level</strong></h5>
+			        <br>
+			        <%#= link_to "Add your belt", new_user_promotion_path(@user), class: "btn btn-primary" %>
+			      </div>
+			    </div>
+			  </div> -->
+			<%# end %>
+
+		  <!-- Measurements -->
+			<div class="col mb-4">
+		    <div class="card bg-secondary border-0 b rounded-lg shadow-sm">
+		      <div class="card-body">
+		        
+		        <h5 class="card-title"><strong>Measurements</strong></h5>
+		        <br>
+		        <div class="form-group">
+			        <p class="card-text">
+			        	<%= f.label "Height in cm:" %>
+			        	<%= f.number_field :height, class: "form-control" %></p>
+			        <p class="card-text">
+			        	<%= f.label "Weight in kg:" %>
+			        	<%= f.number_field :weight, class: "form-control" %></p>
+			        <% if current_user.admin? %>
+			        	<p class="card-text">
+				        	<%= f.label "Weight good?" %>
+				        	<%= f.check_box :weight_good, class: "form-control" %>
+			        	</p>
+		        	<% end %>
+		        </div>
+		      
+		      </div>
+		    </div>
+	 		</div>
+			<br>
+		
+		</div>
+			
+		<div>
+			<%= f.button :submit, "Update Profile", class: "btn btn-primary" %>
+			<%= link_to "Delete Profile", user_path(@user),
+			      method: :delete,
+			      data: { confirm: "Are you sure you want to delete user ##{@user.id} - #{user_name}?" },
+			      class: "btn btn-danger" %>	
+		</div>
+		<br>
+			
+		<% end %>
+
+		<!-- Comments cards -->
+		<% if current_user.admin? %>
+
+			<div class="comments"><h4 class="ml-3"><strong>Comments</strong></h4>
+				<% if @user.comments != [] %>
+					<div class="add-comment">
+						<%= link_to new_user_comment_path(@user, @comment), class: "btn" do %>
+							<i class="fas fa-plus-square"></i>
+						<% end %>
+					</div>
+				<% end %>
+			</div>
+
+			<% if @user.comments.empty? %>
+				
+				<p>
+					<%= "No comments yet" %> <%= link_to new_user_comment_path(@user, @comment), class: "btn" do %>
+						<i class="fas fa-plus-square"></i>
+					<% end %>
+				</p>
+
+			<% else %>
+
+				<% @user.comments.each do |comment| %>
+					<div class="row row-cols-1 row-cols-sm-1">
+						<div class="col mb-4">
+							<div class="card bg-secondary border-0 b rounded-lg shadow-sm">
+								<div class="card-body">
+															
+									<h5><strong><%= comment.category %>:</strong></h5>
+									<p><%= comment.content %></p>
+									
+									<div class="comment-actions">
+										<div class="icon-edit">
+										<%= link_to edit_user_comment_path(comment.user, comment), class: "btn" do %>
+										  <i class="fas fa-edit"></i>
+										<% end %>
+										</div>
+										
+										<div class="icon-delete">
+											<%= link_to user_comment_path(comment.user, comment),
+											      method: :delete,
+											      data: { confirm: "Are you sure you want to delete this comment?" },
+											      class: "btn" do %>
+													<i class="fas fa-trash-alt"></i>
+											<% end %>
+										</div>
+									</div>
+
+								</div>	
+							</div>
+						</div>
+					</div>
+				<% end %>
+
+			<% end %>
+
+		<% end %>
+
+	<!-- Admin or @user logic -->
+	<% else %>
+		<h2>No Access</h2>
+		<p>This is someone else's profile.</p>
+
+		<%= link_to "Your Profile", user_path(current_user), class: "btn btn-primary" %>
+		<%= link_to "Home Page", root_path, class: "btn btn-primary" %>
+	<% end %>
+	<!-- Admin or @user logic -->
+
+	</div>
+
+
+  <!-- not_active_why:													(string) -->
+
+  <!-- email:																		(string) -->
+  <!-- encrypted_password:											(string) -->
+  <!-- reset_password_token:										(string) -->
+  <!-- reset_password_sent_at: 									(datetime) -->
+  <!-- remember_created_at:											(datetime) -->
+  <!-- created_at: 															(datetime) -->
+  <!-- updated_at:															(datetime) -->
+  <!-- admin: 																	(boolean) -->
+  <!-- first_name: 															(string) -->
+  <!-- last_name:																(string) -->
+  <!-- date_of_birth:														(date)	 -->
+  <!-- phone:																		(string) -->
+  <!-- started:																	(date) -->
+  <!-- weight:  																(integer) -->
+  <!-- height:																	(integer) -->
+  <!-- weight_good: 														(boolean) -->
+  <!-- reasons_for_weight:											(string) -->
+  <!-- active_member: 													(boolean) -->
+  <!-- not_active_why:													(string) -->
+  <!-- belt:																		(string) -->
+  <!-- last_promotion:													(date) -->
+
+
+
+
+
+
+

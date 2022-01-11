@@ -1,0 +1,44 @@
+<!-- Measurements -->
+<div class="col mb-4">
+  <div class="card border-0 b rounded-lg shadow-sm">
+    <div class="card-body add-comment-reference">
+
+      <%= render 'users/shared_show/add_comment_button' %>
+
+      <h5 class="card-title"><strong>Measurements</strong></h5>
+      <br>
+      <p class="card-text">
+      	Height: <% if @user.height == nil || @user.height == "" %>
+      		<span class="n-a">n/a</span>
+      	<% else %>
+      		<%= @user.height %> cm
+      	<% end %>
+      	</p>
+      <p class="card-text">
+      	Weight: <% if @user.weight == nil || @user.weight == "" %>
+      		<span class="n-a">n/a</span>
+      	<% else %>
+      		<%= @user.weight %> kg
+      	<% end %>
+      	</p>
+      <!-- Only Admin -->
+      <% if current_user.admin? %>
+        <p class="card-text">
+        	Weight good: <% if @user.weight_good == nil %>
+        		<span class="n-a">n/a</span>
+        	<% elsif @user.weight_good == true %>
+        		<i class="fas fa-check-circle"></i>
+        	<% else %>
+        		<i class="fas fa-times-circle"></i>
+        	<% end %>
+        </p>
+      <% end %>
+      
+
+    </div>
+
+
+    <%= render 'users/shared_show/comment_conditional_weight' %>
+  
+  </div>
+</div>

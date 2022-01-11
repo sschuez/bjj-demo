@@ -1,0 +1,41 @@
+<!-- Club affilitation -->
+<div class="col mb-4">
+  <div class="card border-0 b rounded-lg shadow-sm">
+    <div class="card-body add-comment-reference">
+
+        <%= render 'users/shared_show/add_comment_button' %>
+
+        <h5 class="card-title"><strong>Club affiliation</strong></h5>
+        <br>
+        <p class="card-text">
+            Member since: <% if @user.started == nil %>
+            <span class="n-a">n/a</span>
+            <% else %>
+            <%= @user.started.strftime("%d.%m.%Y") %>
+            <% end %>
+        </p>
+        <p class="card-text">
+            Joined: <% if @user.started == nil %>
+            <span class="n-a">n/a</span>
+            <% else %>
+            <strong><%= @user.date_diff(@user.started, Date.today) %></strong> ago
+            <% end %>
+        </p>
+        <p class="card-text">Profile created: <%= @user.created_at.strftime("%d.%m.%Y") %></p>
+        <!-- Only admin -->
+        <% if current_user.admin? %>
+        <p class="card-text">
+            Active: <% if @user.active_member == true %>
+            <i class="fas fa-check-circle"></i>
+            <% else %>
+            <i class="fas fa-times-circle"></i>
+            <% end %>
+        </p>
+        <% end %>
+
+    </div>
+
+    <%= render 'users/shared_show/comment_conditional_membership' %>
+
+  </div>
+</div>

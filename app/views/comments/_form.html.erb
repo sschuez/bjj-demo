@@ -1,0 +1,50 @@
+<div class="container">
+	<% if current_user.admin? %>
+  
+		<div class="update-top">
+			<div>
+			<%= link_to user_path(@user), class: "btn btn-back" do %>
+				<i class="fas fa-arrow-left"></i>
+			<% end %>
+			</div>
+		</div>
+
+  	<div class="row">
+
+			<!-- Promotion form card -->
+			<div class="col mb-4">
+		    <div class="card border-0 bg-secondary rounded-lg shadow-sm">
+		      <div class="card-body">
+					
+			        <h5 class="card-title">Comment for <strong><%= user.first_name %> <%= user.last_name %></strong></h5>
+			        <br>
+							<%= simple_form_for [user, comment] do |f| %>
+							  <div class="form-group">
+								  <%= f.label "Chose category"%>
+								  <%= f.input :category, collection: @categories, selected: @categories.last, label: false, class: "form-control" %>
+							  </div>
+								<div class="form-group">
+									<%= f.label "Your comment:" %>
+									<%= f.input :content, label: false, class: "form-control" %>
+								</div>
+							  <%= f.submit "Add a comment", class: "btn btn-primary" %>
+							<% end %>
+			        
+		      </div>
+		    </div>
+		  </div>
+
+  	</div>  
+
+	<!-- Admin or @user logic -->
+	<% else %>
+		<h2>No Access</h2>
+		<p>This is either someone else's profile or you have no authorisation to perfom requested action.</p>
+
+		<%= link_to "Your Profile", user_path(current_user), class: "btn btn-primary" %>
+		<%= link_to "Home Page", root_path, class: "btn btn-primary" %>
+	<% end %>
+	<!-- Admin or @user logic -->
+
+</div>
+

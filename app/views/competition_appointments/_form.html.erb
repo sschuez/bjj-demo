@@ -1,0 +1,50 @@
+<div class="container">
+	<div class="row">
+
+		<% if @user.sex == "female" %>
+			<% weight_classes = @weight_class_female %>
+		<% elsif @user.sex == "male" %>
+			<% weight_classes = @weight_class_male %>
+		<% else %>
+			<% weight_classes = @weight_class_female + @weight_class_male %>
+		<% end %>
+		
+		<!-- CompetitionAppointment form card -->
+		<div class="col mb-4">
+	    <div class="card border-0 bg-secondary rounded-lg shadow-sm">
+	      <div class="card-body">
+
+					<h5 class="card-title">Register for <strong><%= @competition.name %></strong></h5>
+					<p class="card-text">User: <strong><%= @user.first_name %> <%= @user.last_name %></strong></p>
+					
+					<%= simple_form_for [competition, competition_appointment] do |f| %>
+						<div class="form-group">
+							<%= f.label "Weight class - current weight: #{@user.weight}kg" %>
+							<%= f.input :weight_class, label: false, collection: weight_classes, class: "from-control" %>
+							<%= f.label "Belt class - current belt: #{@user.promotions.last.belt}" %>
+							<%= f.input :belt_class, label: false, collection: @belt_class, class: "from-control" %>
+							<%= f.input :comment, placeholder: "Add comment for later reference", class: "form-control" %>
+							<%= f.input :result, placeholder: "To be added after competition", class: "from-control" %>
+						</div>
+
+					<%= f.submit "Register", class: "btn btn-primary" %>
+
+	      	<% end %>
+					
+	      </div>
+	    </div>
+	  </div>
+
+	</div>
+</div>
+
+
+<!-- 
+t.bigint "user_id", null: false
+t.bigint "competition_id", null: false
+t.string "weight_class"
+t.string "belt_class"
+t.integer "result"
+t.text "comment"
+t.datetime "created_at", precision: 6, null: false
+t.datetime "updated_at", precision: 6, null: false -->

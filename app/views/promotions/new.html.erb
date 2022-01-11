@@ -1,0 +1,126 @@
+<div class="container">
+	<% if (current_user == @user && @user.promotions.empty?) || current_user.admin? %>
+  
+  	<div class="row">
+
+			<!-- Promotion form card -->
+			<div class="col mb-4">
+		    <div class="card border-0 bg-secondary rounded-lg shadow-sm">
+		      <div class="card-body">
+					
+						<% if @user.promotions.empty? %>
+
+							<h5 class="card-title">Add your current belt</h5>
+							
+							<%= simple_form_for [@user, @promotion] do |f| %>
+							
+							<p class="card-text">
+								<%= f.label "Current belt:" %>
+								<%= f.input :belt, collection: @belts, label: false %>
+							</p>
+							
+							<%= f.button :submit, "Add belt", class: "btn btn-primary" %>
+							<% end %>
+
+						<% else %>
+
+			        <h5 class="card-title">Promote <strong><%= @user.first_name %> <%= @user.last_name %></strong></h5>
+			        <br>
+			        <h6>Promotions so far:</h6>
+			        <div class="promotions-container">
+			        	<% if @user.promotions.empty? %>
+			        		<p><%= "No promotions yet at BJJ Berlin" %></p>
+			        	<% else %>
+				        	<% @user.promotions.reverse.drop(1).reverse.each do |promotion| %>
+					        	<div class="promotions">
+					        		<div class="promotion-belt"><%= promotion.belt.upcase %> -
+					        		</div> 
+					        		<div class="promotion-date">
+					        			<% if promotion.promoted_at == nil %>
+					        				<%= promotion.created_at.strftime("%d.%m.%Y") %>
+					        			<% else %>
+					        				<%= promotion.promoted_at %>
+					        			<% end %>		
+					        		</div>
+					        	</div>
+				        	<% end %>
+				        <% end %>
+				    		
+					    	<% if date_difference_promotion > 6 %>
+					    		<!-- Show last promotion in red if older than 6 months -->
+					        <div class="promotions promotions-last red">
+					        	<div class="promotion-belt"><%= @user.promotions.last.belt.upcase %> -
+					        	</div> 
+					        	<div class="promotion-date">
+					        		<%= last_promotion.strftime("%d.%m.%Y") %>
+					        	</div>
+					        </div>
+				        <% else %>
+					    		<!-- Show last promotion in green if younger than 6 months -->
+									<div class="promotions promotions-last green">
+					        	<div class="promotion-belt"><%= @user.promotions.last.belt.upcase %> -
+					        	</div> 
+					        	<div class="promotion-date">
+					        		<%= last_promotion.strftime("%d.%m.%Y") %>
+					        	</div>
+					        </div>	
+								<% end %>
+				        </div>
+
+			        <p class="card-text">
+			        	Last promotion 
+			        	<% if @user.promotions.empty? %>
+									<span class="n-a"><%= "n/a" %></span>
+								<% else %>
+									<% if date_difference_promotion > 6 %>
+			        			<strong class="red"><%= @user.date_diff(last_promotion, Date.today) %></strong>
+			        		<% else %>
+			        			<strong class="green"><%= @user.date_diff(last_promotion, Date.today) %></strong>
+			        		<% end %>
+			        		ago
+								<% end %>
+				      </p>
+
+				      <%= simple_form_for [@user, @promotion] do |f| %>
+							
+							<%= f.label "Promotion date: *" %>
+							<%= f.date_field :promoted_at %>
+							<p class="info">* This field is not mandatory. Default date is today.</p>
+							
+							<%= f.button :submit, "Promote #{@user.first_name}", class: "btn btn-primary" %>
+							<% end %>
+							<br>
+
+							<div class="info-next-promotion">
+								<i class="fas fa-long-arrow-alt-right"></i>
+								<p>This will promote <%= @user.first_name %> to <strong><%= @belts[current_belt_index + 1] %></strong></p>
+							</div>
+			      
+						<% end %>
+
+		      </div>
+		    </div>
+		  </div>
+
+  	</div>  
+
+	<!-- Admin or @user logic -->
+	<% else %>
+		<h2>No Access</h2>
+		<p>This is either someone else's profile or you have no authorisation to perfom requested action.</p>
+
+		<%= link_to "Your Profile", user_path(current_user), class: "btn btn-primary" %>
+		<%= link_to "Home Page", root_path, class: "btn btn-primary" %>
+	<% end %>
+	<!-- Admin or @user logic -->
+
+</div>
+
+
+
+
+
+
+
+
+

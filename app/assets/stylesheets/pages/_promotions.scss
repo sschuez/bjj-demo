@@ -1,0 +1,30 @@
+.promotions-last{
+	font-weight: bold;
+}
+
+.green{
+	color: $green;
+}
+
+.red{
+	color: $red;
+	}
+
+.promotions-last-green{
+	color: $green;
+	font-weight: bold;
+}
+
+.info{
+	margin-top: 12px;
+	font-size: 12px;
+	font-style: italic;
+}
+
+.info-next-promotion{
+	display: flex;
+	i{
+		margin-right: 8px;
+		padding-top: 3px;
+	}
+}

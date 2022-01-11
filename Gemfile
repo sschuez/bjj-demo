@@ -60,3 +60,15 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# OLD GEMS
+gem 'faker'
+gem 'remotipart', github: 'mshibuya/remotipart'
+gem 'rails_admin', '>= 1.0.0.rc'
+gem 'sassc-rails'
+gem 'uglifier'
+gem 'cloudinary', '~> 1.12.0'
+gem 'pundit'
+gem 'pretender'
+gem 'pg_search'
+

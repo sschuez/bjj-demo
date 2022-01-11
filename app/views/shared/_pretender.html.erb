@@ -1,0 +1,6 @@
+<% if current_user != true_user %>
+	<div class="pretender">
+		You <%#= true_user.first_name %>are signed in as &nbsp;<strong><%= current_user.first_name %> <%= current_user.last_name %>!</strong>
+		<%= link_to "Back to admin", stop_impersonating_users_path, method: :post %>
+	</div>
+<% end %>

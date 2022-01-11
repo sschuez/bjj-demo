@@ -1,0 +1,80 @@
+<!-- BJJ level -->
+<div class="col mb-4">
+  <div class="card border-0 b rounded-lg shadow-sm">
+    <div class="card-body add-comment-reference">
+		
+			<%= render 'users/shared_show/add_comment_button' %>
+
+      <h5 class="card-title"><strong>BJJ level</strong></h5>
+      <br>
+
+      <% if @user.promotions.empty? %>
+
+      	<p>No promotions so far</p>
+      	<%= link_to "Add belt", new_user_promotion_path(@user), class: "btn btn-primary" %>
+
+      <% else %>
+
+        <h6>Promotions so far:</h6>
+	        <div class="promotions-container">
+	        	<% @user.promotions.reverse.drop(1).reverse.each do |promotion| %>
+		        	<div class="promotions">
+		        		<div class="promotion-belt"><%= promotion.belt %> -
+		        		</div> 
+		        		<div class="promotion-date">
+		        			<% if promotion.promoted_at == nil %>
+		        				<%= promotion.created_at.strftime("%d.%m.%Y") %>
+		        			<% else %>
+		        				<%= promotion.promoted_at.strftime("%d.%m.%Y") %>
+		        			<% end %>		
+		        		</div>
+		        	</div>
+	        <% end %>
+		    		
+			    	<% if date_difference_promotion > 6 %>
+			    		<!-- Show last promotion in red if older than 6 months -->
+			        <div class="promotions promotions-last red">
+			        	<div class="promotion-belt"><%= @user.promotions.last.belt %> -
+			        	</div> 
+			        	<div class="promotion-date">
+			        		<%= last_promotion.strftime("%d.%m.%Y") %>
+			        	</div>
+			        </div>
+			      </div>
+		        <% else %>
+			    		<!-- Show last promotion in green if younger than 6 months -->
+  							<div class="promotions promotions-last green">
+  			        	<div class="promotion-belt"><%= @user.promotions.last.belt %> -
+  			        	</div> 
+  			        	<div class="promotion-date">
+  			        		<%= last_promotion.strftime("%d.%m.%Y") %>		
+  			        	</div>
+  			        </div>
+		       		</div>
+						<% end %>
+
+	        <p class="card-text">Last promotion
+						<% if date_difference_promotion > 6 %>
+        			<strong class="red"><%= @user.date_diff(last_promotion, Date.today) %></strong>
+        		<% else %>
+        			<strong class="green"><%= @user.date_diff(last_promotion, Date.today) %></strong>
+        		<% end %>
+        		ago
+		      </p>
+	      </p>
+        <p class="belt-progress">
+        	You are <strong><%= black_belt_progress %>%</strong> into the <strong>black belt</strong>
+        </p>
+        <% if black_belt_progress != 100 %>
+	        <% if current_user.admin? %>
+	        	<%= link_to "Promote", new_user_promotion_path(@user), class: "btn btn-primary btn-promote" %>
+	        <% end %>
+    		<% end %>
+    	<% end %>
+    
+    </div>
+  
+  <%= render 'users/shared_show/comment_conditional_promotion' %>
+
+  </div>
+</div>

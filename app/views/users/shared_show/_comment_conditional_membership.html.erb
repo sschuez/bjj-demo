@@ -1,0 +1,41 @@
+<% @user.comments.each do |comment| %>
+	<% if comment.category == "membership" %>
+	
+		<div class="col mb-3 comment-card-card">
+		  <div class="card border-0 rounded-lg shadow-sm mt-3">
+		    <div class="card-body comment-card-content">
+
+		    	<h5 class="card-title"><strong>Comment <%= comment.category %></strong></h5>
+					<p class="card-text"><%= comment.content %></p>
+									
+					<div class="comment-actions">
+						<% if policy(comment).edit? %>
+							<div class="icon-edit">
+							<%= link_to edit_user_comment_path(comment.user, comment), class: "btn" do %>
+							  <i class="fas fa-edit"></i>
+							<% end %>
+							</div>
+						<% end %>
+						
+						<% if policy(comment).destroy? %>
+							<div class="icon-delete">
+								<%= link_to user_comment_path(comment.user, comment),
+								      method: :delete,
+								      data: { confirm: "Are you sure you want to delete this comment?" },
+								      class: "btn" do %>
+										<i class="fas fa-trash-alt"></i>
+								<% end %>
+							</div>
+						<% end %>
+					</div>
+		    
+		    </div>
+		  	<div class="updated-at">
+		  			<p>Updated on: <%= comment.updated_at.strftime("%d.%m.%Y") %></p>
+		  	</div>
+
+		  </div>
+		</div>
+
+	<% end %>
+<% end %>

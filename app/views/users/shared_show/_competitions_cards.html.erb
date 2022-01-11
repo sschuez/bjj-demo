@@ -1,0 +1,66 @@
+<!-- Competitions cards -->
+<div class="comments"><h4 class="ml-3"><strong>Competitions</strong></h4>
+	<% if policy(@user.competitions).new? %>
+		<div class="add-competition">
+			<%= link_to competitions_path, class: "btn" do %>
+				<i class="fas fa-plus-square"></i>
+			<% end %>
+		</div>
+	<% end %>
+</div>
+
+<% if @user.competitions.empty? %>
+	<p><%= "No upcoming competitions" %></p>
+<% else %>
+	<% @user.competitions.each do |competition| %>
+		<div class="row row-cols-1 row-cols-sm-1">
+			<div class="col mb-4">
+				<div class="card border-0 b rounded-lg shadow-sm comment-card">
+					
+					<div class="card-body">
+						<%= link_to competition_path(competition) do %>
+							<h5><strong><%= competition.name %></strong></h5>
+							<p><%= competition.location %>, <%= competition.date.strftime("%d.%m.%Y") %></p>
+						<% end %>
+							<% if competition.competition_appointments.find_by(user: @user.id).comment.present? %>
+								<%= link_to competition_competition_appointment_path(competition, competition.competition_appointments.find_by(user: @user.id)) do %>
+									<p style="font-style: italic; margin-top: 5px;">Comment: <%= competition.competition_appointments.find_by(user: @user.id).comment %></p>
+								<% end %>
+							<% end %>
+
+						<div class="comment-actions">
+							<!-- Edit button -->
+							<%# if policy(competition).edit? %>
+								<div class="icon-edit">
+								<%= link_to edit_competition_competition_appointment_path(competition, competition.competition_appointments.find_by(user: @user.id)), class: "btn" do %>
+								  <i class="fas fa-edit"></i>
+								<% end %>
+								</div>
+							<%# end %>
+						
+							<!-- Delete button -->
+							<%# if policy(comment).destroy? %>
+								<div class="icon-delete">
+									<%= link_to competition_competition_appointment_path(competition, competition.competition_appointments.find_by(user: @user.id)),
+									      method: :delete,
+									      data: { confirm: "Are you sure you want to deregister from this competition?" },
+									      class: "btn" do %>
+											<i class="fas fa-trash-alt"></i>
+									<% end %>
+								</div>
+							<%# end %>
+						</div>
+
+					</div>	
+				
+					<!-- Updated on: -->
+					<!-- <div class="updated-at comments-standalone"> -->
+							<!-- <p id="updated-standalone">Updated on: <%#= comment.updated_at.strftime("%d.%m.%Y") %></p> -->
+					<!-- </div> -->
+
+				</div>
+			</div>
+		</div>
+	
+	<% end %>
+<% end %>
