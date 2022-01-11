@@ -1,1 +1,1 @@
-Rails app generated with [lewagon/rails-templates](https://github.com/lewagon/rails-templates), created by the [Le Wagon coding bootcamp](https://www.lewagon.com) team.
+Rails App developed to manage student profiles of BJJ Dojo Berlin. For protection of students' privacy, no live data is used, but just mock-up data.
