@@ -52,7 +52,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_variable
-    @belts = ['White', 'White I', 'White II', 'White III', 'White IIII', 'Blue', 'Blue I', 'Blue II', 'Blue III', 'Blue IIII', 'Purple', 'Purple I', 'Purple II', 'Purple III', 'Purple IIII', 'Brown', 'Brown I', 'Brown II', 'Brown III', 'Brown IIII', 'Black']
+    @belts = ['White', 'White I', 'White II', 'White III', 'White IIII', 'Blue', 'Blue I', 'Blue II', 'Blue III', 'Blue IIII', 'Purple', 'Purple I', 'Purple II', 'Purple III', 'Purple IIII', 'Brown', 'Brown I', 'Brown II', 'Brown III', 'Brown IIII', 'Black', 'Black I']
     @belt_colours = [ 'White', 'Blue', 'Purple','Brown','Black']
     @belt_class = ['White', 'Blue', 'Purple', 'Brown', 'Black']
     @weights = [54, (40..50), (50..60), (60..70), (70..80), (80..90), (90..100)]

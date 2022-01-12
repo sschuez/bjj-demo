@@ -15,8 +15,8 @@ User.destroy_all if Rails.env == "DEVELOPMENT"
 
 puts 'Creating Admins...'
 admin1 = User.create!(
-  email: 'stephen.schuez@gmail.com',
-  password: "777jjj",
+  email: 'demo@bjj.com',
+  password: "aaaaaa",
   admin: true,
   first_name: 'Stephen',
   last_name: 'Schuez',
@@ -106,8 +106,87 @@ puts 'Creating 50 users...'
 end
 puts "Created #{User.count} Users."
 
+puts "Creating 5 competitions for 2022"
+5.times do
+  date = rand(Date.today..Date.parse('31-12-2022'))
+  country = Faker::Address.country
+  competition = Competition.new(
+    name: "#{country} Open",
+    date: date,
+    location: "#{Faker::Address.street_address}, #{Faker::Address.city}",
+    info: Faker::Lorem.sentence(word_count: 10),
+    registration_start: date - 90,
+    registration_end: date - 10,
+    website: "www.competition-website.bjj",
+    created_by: admin1
+  )
+  competition.save
+end 
+
+puts "Creating 5 competitions for 2023"
+5.times do
+  date = rand(Date.today..Date.parse('31-12-2023'))
+  country = Faker::Address.country
+  competition = Competition.new(
+    name: "#{country} Open",
+    date: date,
+    location: "#{Faker::Address.street_address}, #{Faker::Address.city}",
+    info: Faker::Lorem.sentence(word_count: 10),
+    registration_start: date - 90,
+    registration_end: date - 10,
+    website: "www.competition-website.bjj",
+    created_by: admin1
+  )
+  competition.save
+end
+
+puts "Creating 5 competitions for 2024"
+5.times do
+  date = rand(Date.today..Date.parse('31-12-2024'))
+  country = Faker::Address.country
+  competition = Competition.new(
+    name: "#{country} Open",
+    date: date,
+    location: "#{Faker::Address.street_address}, #{Faker::Address.city}",
+    info: Faker::Lorem.sentence(word_count: 10),
+    registration_start: date - 90,
+    registration_end: date - 10,
+    website: "www.competition-website.bjj",
+    created_by: admin1
+  )
+  competition.save
+end 
+
+puts "Creating 5 competitions for 2025"
+5.times do
+  date = rand(Date.today..Date.parse('31-12-2025'))
+  country = Faker::Address.country
+  competition = Competition.new(
+    name: "#{country} Open",
+    date: date,
+    location: "#{Faker::Address.street_address}, #{Faker::Address.city}",
+    info: Faker::Lorem.sentence(word_count: 10),
+    registration_start: date - 90,
+    registration_end: date - 10,
+    website: "www.competition-website.bjj",
+    created_by: admin1
+  )
+  competition.save
+end 
+
 
 # SCHEMA:
+
+# "name"
+# "date"
+# "location"
+# "info"
+# "registration_start"
+# "registration_end"
+# "website"
+# "created_at"
+# "updated_at"
+# "created_by"
 
 #  email:																		(string)
 #  encrypted_password:											(string)

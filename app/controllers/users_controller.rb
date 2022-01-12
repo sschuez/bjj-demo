@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-	before_action :set_user, only: [:show, :edit, :update, :destroy]
+	before_action :authenticate_user!, :only => [ :show, :edit, :update, :destroy ]
+	before_action :set_user, only: [ :show, :edit, :update, :destroy ]
 	helper_method :sort_column, :sort_direction
 
 	def index
@@ -16,44 +17,6 @@ class UsersController < ApplicationController
       format.html
       format.js
     end
-
-    #.concat(params["search"]["weight"]).concat(params["search"]["height"])
-
-		# skip_policy_scope
-		
-		# Le Wagon search bar and old sort logic
-		# if params[:query].present?
-		#   sql_query = "first_name ILIKE :query OR last_name ILIKE :query"
-		#   @users = policy_scope(User.where(sql_query, query: "%#{params[:query]}%"))
-		# else
-		#   @users = policy_scope(User.order(sort_column + " " + sort_direction))
-		#   # @promotions = policy_scope(Promotion.order(sort_column + " " + sort_direction))
-
-		#   # filters - not used so far!
-		# 	# @sex = User.all.pluck(:sex).uniq
-		# 	# @active = User.all.pluck(:active_member).uniq
-		# 	# @users = @users.where(sex: params[:filter_sex]) if params[:filter_sex].present?
-		# 	# @users = @users.where(active_member: params[:filter_active_member]) if params[:filter_active_member].present?
-		# end
-		
-		# @users = User.all
-
-		# if params[:query].present?
-		#   sql_query = "first_name ILIKE :query OR last_name ILIKE :query"
-		#   @users = User.where(sql_query, query: "%#{params[:query]}%")
-
-		# @search = params[:query]
-		# if @search.present?
-			# sql_query = "first_name ILIKE :query OR last_name ILIKE :query"
-			# @first_name = @search["first_name"]
-			# @users = User.where(sql_query, query: "%#{@search}%")
-
-			# @search = params[:query]
-		 #    if @search.present?
-		 #      @first_name = @search["first_name"]
-		 #      @users = User.where(first_name: @first_name)
-		 #    end
-			# @users = User.where("first_name ILIKE ?", "%#{@first_name}%")
 	end
 
 	def show
