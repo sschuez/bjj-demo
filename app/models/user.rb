@@ -20,6 +20,8 @@ class User < ApplicationRecord
       tsearch: {any_word: true}
     }
 
+    include CloudinaryHelper
+    
     # include PgSearch::Model
     #   multisearchable against: [:sex, :active]
     
