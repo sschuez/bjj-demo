@@ -1,18 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
-belts = ['White', 'White I', 'White II', 'White III', 'White IIII', 'Blue', 'Blue I', 'Blue II', 'Blue III', 'Blue IIII', 'Purple', 'Purple I', 'Purple II', 'Purple III', 'Purple IIII', 'Brown', 'Brown I', 'Brown II', 'Brown III', 'Brown IIII', 'Black']
-categories = ['personal info', 'membership', 'promotion', 'weight', 'miscellaneous']
-sex = ['male', 'female', 'undefined']
-
-puts 'Deleting all users...'
-User.destroy_all if Rails.env == "DEVELOPMENT"
-
 puts 'Creating Admins...'
 admin1 = User.create!(
   email: 'demo@bjj.com',
@@ -65,46 +50,6 @@ admin1 = User.create!(
     )
   promotion.user = admin2
   promotion.save
-
-puts 'Creating 50 users...'
-20.times do
-  user = User.create!(
-    email: Faker::Internet.email,
-    password: 'aaaaaa',
-    admin: false,
-    first_name: Faker::Name.first_name,
-    last_name: Faker::Name.last_name,
-    date_of_birth: Faker::Date.birthday(min_age: 16, max_age: 65),
-    phone: Faker::PhoneNumber.phone_number_with_country_code,
-    started: Faker::Date.between(from: 1000.days.ago, to: Date.today),
-    weight: rand(50..100), 														
-    height: rand(145..190),																
-    sex: sex.sample,																
-    weight_good: Faker::Boolean.boolean(true_ratio: 0.7), 										
-    # reasons_for_weight:	Faker::Lorem.sentence(word_count: 5),			
-    active_member: Faker::Boolean.boolean(true_ratio: 0.8), 								
-    # not_active_why:	Faker::ChuckNorris.fact,							
-    # belt: belts.sample,																	
-    # last_promotion: Faker::Date.backward(days: 1000),
-    )
-  rand(1..5).times do
-    comment = Comment.new(
-      category: categories.sample,
-      content: Faker::ChuckNorris.fact,
-      )
-    comment.user = user
-    comment.save
-  end
-
-  promotion = Promotion.new(
-    belt: belts.sample,
-    promoted_at: Faker::Date.backward(days: 1000),
-    )
-  promotion.user = user
-  promotion.save
-
-end
-puts "Created #{User.count} Users."
 
 puts "Creating 5 competitions for 2022"
 5.times do
@@ -174,8 +119,97 @@ puts "Creating 5 competitions for 2025"
   competition.save
 end 
 
+belts = ['White', 'White I', 'White II', 'White III', 'White IIII', 'Blue', 'Blue I', 'Blue II', 'Blue III', 'Blue IIII', 'Purple', 'Purple I', 'Purple II', 'Purple III', 'Purple IIII', 'Brown', 'Brown I', 'Brown II', 'Brown III', 'Brown IIII', 'Black']
+categories = ['personal info', 'membership', 'promotion', 'weight', 'miscellaneous']
+sex = ['male', 'female', 'undefined']
+weight_classes = [
+  "Rooster (m) – 57.5 kg",
+  "Light Feather (m) – 64 kg",
+  "Feather (m) – 70 kg",
+  "Light (m) – 76 kg",
+  "Middle (m) – 82.3 kg",
+  "Medium Heavy (m) – 88.3 kg",
+  "Heavy (m) – 94.3 kg",
+  "Super-Heavy (m) – 100.5 kg",
+  "Ultra Heavy (m) – No Maximum Weight",
+  "Light Feather (f) – 53.5 kg ",
+  "Feather (f) – 58.5 kg ",
+  "Light (f) – 64 kg ",
+  "Middle (f) – 69 kg ",
+  "Medium Heavy (f) – 74 kg ",
+  "Heavy (f) – No Maximum Weight"
+]
+belt_classes = ['White', 'Blue', 'Purple', 'Brown', 'Black']
+
+puts 'Deleting all users...'
+User.destroy_all if Rails.env == "DEVELOPMENT"
+
+puts 'Creating 50 users...'
+20.times do
+  user = User.create!(
+    email: Faker::Internet.email,
+    password: 'aaaaaa',
+    admin: false,
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    date_of_birth: Faker::Date.birthday(min_age: 16, max_age: 65),
+    phone: Faker::PhoneNumber.phone_number_with_country_code,
+    started: Faker::Date.between(from: 1000.days.ago, to: Date.today),
+    weight: rand(50..100), 														
+    height: rand(145..190),																
+    sex: sex.sample,																
+    weight_good: Faker::Boolean.boolean(true_ratio: 0.7), 										
+    # reasons_for_weight:	Faker::Lorem.sentence(word_count: 5),			
+    active_member: Faker::Boolean.boolean(true_ratio: 0.8), 								
+    # not_active_why:	Faker::ChuckNorris.fact,							
+    # belt: belts.sample,																	
+    # last_promotion: Faker::Date.backward(days: 1000),
+    )
+  rand(1..5).times do
+    comment = Comment.new(
+      category: categories.sample,
+      content: Faker::ChuckNorris.fact,
+    )
+    comment.user = user
+    comment.save
+  end
+  
+  promotion = Promotion.new(
+    belt: belts.sample,
+    promoted_at: Faker::Date.backward(days: 1000),
+  )
+  promotion.user = user
+  promotion.save
+  
+  puts "Creating a few competition appointments"
+  rand(3..10).times do
+    competition_appointment = CompetitionAppointment.new(
+      user: user,
+      competition: Competition.order(Arel.sql('RANDOM()')).first,
+      weight_class: weight_classes.sample,
+      belt_class: belt_classes.sample,
+      comment: "Here goes some comment by the teacher / admin for the student to best prepare them for the competition."     
+    )
+    competition_appointment.save
+  end
+
+end
+
+puts "Created #{User.count} Users."
+
+
+
 
 # SCHEMA:
+
+# "user_id"
+# "competition_id"
+# "weight_class"
+# "belt_class"
+# "result"
+# "comment"
+# "created_at"
+# "updated_at"
 
 # "name"
 # "date"
